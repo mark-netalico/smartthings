@@ -1,0 +1,11 @@
+{
+    "name": "netalico/smartthings",
+    "autoload": {
+        "psr-0" : {
+            "Netalico\\Smartthings" : "src"
+        }
+    },
+    "require": {
+		 "anlutro/curl": "dev-master"
+	}
+}
