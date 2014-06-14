@@ -499,13 +499,9 @@ private _device_to_json(device, type) {
 
     def vd = [:]
     def state = "";
-    def jd = [id: device.id, label: device.label, type: type, state: device.currentState('switch')];
     
     if (type == "switch") {
-        //def s = device.currentState('switch')
         state = device.currentState('switch')
-        //vd['timestamp'] = s?.isoDate
-        //vd['switch'] = s?.value == "on"
     } else if (type == "motion") {
         def s = device.currentState('motion')
         vd['timestamp'] = s?.isoDate
@@ -522,7 +518,11 @@ private _device_to_json(device, type) {
         def s = device.currentState('presence')
         vd['timestamp'] = s?.isoDate
         vd['presence'] = s?.value == "present"
+    } else if (type == "lock") {
+        state = device.currentState('lock')
     }
+
+    def jd = [id: device.id, label: device.label, type: type, state: state];
     
     return jd
 }

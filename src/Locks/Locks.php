@@ -2,7 +2,7 @@
 
 namespace Netalico\Smartthings;
 
-class Switches {
+class Locks {
 
 	private $baseURL = "https://graph.api.smartthings.com";
 
@@ -13,11 +13,11 @@ class Switches {
 		$this->smartthings = $smartthings;
 	}
 
-	public function getSwitches()
+	public function getLocks()
 	{
-		$requestUrl = $this->baseURL . "/api/smartapps/installations/" . $this->smartthings->getEndpoint() . "/switch";
+		$requestUrl = $this->baseURL . "/api/smartapps/installations/" . $this->smartthings->getEndpoint() . "/lock";
 		$curl = new \anlutro\cURL\cURL;
-			$result = $curl->newRequest('get', $requestUrl )
+			$result = $curl->newRequest('GET', $requestUrl )
 			    ->setHeader('content-type', 'application/json')
 			    ->setHeader('Accept', 'json')
 			    ->setHeader('Authorization', 'Bearer ' .  $this->smartthings->getAccessToken())
@@ -29,10 +29,10 @@ class Switches {
 		return $switches;
 	}
 
-	public function getSwitch($switchId)
+	public function getLock($lockId)
 	{
-		$requestUrl = $this->baseURL . "/api/smartapps/installations/" . $this->smartthings->getEndpoint() . "/switch/";
-		$requestUrl .= $switchId;
+		$requestUrl = $this->baseURL . "/api/smartapps/installations/" . $this->smartthings->getEndpoint() . "/lock/";
+		$requestUrl .= $lockId;
 		$curl = new \anlutro\cURL\cURL;
 		$result = $curl->newJsonRequest('GET', $requestUrl, array() )
 		    ->setHeader('content-type', 'application/json')
@@ -41,35 +41,38 @@ class Switches {
 		    ->setOptions([CURLOPT_VERBOSE => true])
 		    ->send();
 
-		$switch = json_decode($result->body);
+		$lock = json_decode($result->body);
 
-		return $switch;
+		return $lock;
 	}
 
-	public function setSwitchOn($switchId)
+	public function setLocked($lockId)
 	{
-		$requestUrl = $this->baseURL . "/api/smartapps/installations/" . $this->smartthings->getEndpoint() . "/switch/";
-		$requestUrl .= $switchId;
+		$requestUrl = $this->baseURL . "/api/smartapps/installations/" . $this->smartthings->getEndpoint() . "/lock/";
+		$requestUrl .= $lockId;
 		$curl = new \anlutro\cURL\cURL;
-		$result = $curl->newJsonRequest('PUT', $requestUrl, array('command' => 'on') )
+		$result = $curl->newJsonRequest('PUT', $requestUrl, array('command' => 'lock') )
 		    ->setHeader('content-type', 'application/json')
 		    ->setHeader('Accept', 'json')
 		    ->setHeader('Authorization', 'Bearer ' . $this->smartthings->getAccessToken())
 		    ->setOptions([CURLOPT_VERBOSE => true])
 		    ->send();
+
+		
 	}
 
-	public function setSwitchOff($switchId)
+	public function setUnlocked($lockId)
 	{
-		$requestUrl = $this->baseURL . "/api/smartapps/installations/" . $this->smartthings->getEndpoint() . "/switch/";
-		$requestUrl .= $switchId;
+		$requestUrl = $this->baseURL . "/api/smartapps/installations/" . $this->smartthings->getEndpoint() . "/lock/";
+		$requestUrl .= $lockId;
 		$curl = new \anlutro\cURL\cURL;
-		$result = $curl->newJsonRequest('PUT', $requestUrl, array('command' => 'off') )
+		$result = $curl->newJsonRequest('PUT', $requestUrl, array('command' => 'unlock') )
 		    ->setHeader('content-type', 'application/json')
 		    ->setHeader('Accept', 'json')
 		    ->setHeader('Authorization', 'Bearer ' . $this->smartthings->getAccessToken())
 		    ->setOptions([CURLOPT_VERBOSE => true])
 		    ->send();
+
 	}
 
 }
