@@ -8,7 +8,12 @@ class Locks {
 
 	private $smartthings;
 
-	public function __construct(Smartthings $smartthings)
+	public function __construct()
+	{
+		// $this->smartthings = $smartthings;
+	}
+
+	public function setSmartthings(Smartthings $smartthings)
 	{
 		$this->smartthings = $smartthings;
 	}

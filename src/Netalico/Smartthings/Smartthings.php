@@ -29,6 +29,11 @@ class Smartthings {
 	public function __construct()
 	{} 
 
+	public function greetings()
+	{
+		return "working";
+	}
+
 	public function getOauthUrl() 
 	{
 		// TODO: return errors if clientId and RedirectUri not set

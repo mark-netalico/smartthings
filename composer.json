@@ -1,11 +1,23 @@
 {
     "name": "netalico/smartthings",
+    "description": "",
+    "authors": [
+        {
+            "name": "Mark Lewis",
+            "email": "mark@netalico.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
     "autoload": {
-        "psr-0" : {
-            "Netalico\\Smartthings" : "src"
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Netalico\\Smartthings\\": "src/"
         }
     },
-    "require": {
-		 "anlutro/curl": "dev-master"
-	}
+    "minimum-stability": "stable"
 }
