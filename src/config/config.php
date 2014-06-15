@@ -2,10 +2,10 @@
 
 return array(
 
-	'clientId' => 'test1',
+	'clientId' => '',
 
-	'clientSecret' => 'test2',
+	'clientSecret' => '',
 
-	'endpoint' => 'test3'
+	'endpoint' => ''
 
 );
