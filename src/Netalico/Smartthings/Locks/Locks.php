@@ -2,20 +2,26 @@
 
 namespace Netalico\Smartthings;
 
+use \anlutro\cURL\cURL;
+
 class Locks {
 
-	private $baseURL = "https://graph.api.smartthings.com";
+	protected $baseURL = "https://graph.api.smartthings.com";
 
-	private $smartthings;
+	protected $smartthings;
 
-	public function __construct()
-	{
-		// $this->smartthings = $smartthings;
-	}
+	protected $curl;
+
+	public function __construct(cURL $curl)
+	{	
+		$this->curl = new cURL;
+	} 
 
 	public function setSmartthings(Smartthings $smartthings)
 	{
 		$this->smartthings = $smartthings;
+
+		return $this;
 	}
 
 	public function getLocks()
@@ -63,7 +69,7 @@ class Locks {
 		    ->setOptions([CURLOPT_VERBOSE => true])
 		    ->send();
 
-		
+		return $this;
 	}
 
 	public function setUnlocked($lockId)
@@ -78,6 +84,7 @@ class Locks {
 		    ->setOptions([CURLOPT_VERBOSE => true])
 		    ->send();
 
+		return $this;
 	}
 
 }

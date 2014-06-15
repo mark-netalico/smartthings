@@ -2,20 +2,26 @@
 
 namespace Netalico\Smartthings;
 
+use \anlutro\cURL\cURL;
+
 class Switches {
 
-	private $baseURL = "https://graph.api.smartthings.com";
+	protected $baseURL = "https://graph.api.smartthings.com";
 
-	private $smartthings;
+	protected $smartthings;
 
-	public function __construct()
-	{
-		// $this->smartthings = $smartthings;
-	}
+	protected $curl;
+
+	public function __construct(cURL $curl)
+	{	
+		$this->curl = new cURL;
+	} 
 
 	public function setSmartthings(Smartthings $smartthings)
 	{
 		$this->smartthings = $smartthings;
+
+		return $this;
 	}
 
 	public function getSwitches()
@@ -62,6 +68,8 @@ class Switches {
 		    ->setHeader('Authorization', 'Bearer ' . $this->smartthings->getAccessToken())
 		    ->setOptions([CURLOPT_VERBOSE => true])
 		    ->send();
+
+		return $this;
 	}
 
 	public function setSwitchOff($switchId)
@@ -75,6 +83,8 @@ class Switches {
 		    ->setHeader('Authorization', 'Bearer ' . $this->smartthings->getAccessToken())
 		    ->setOptions([CURLOPT_VERBOSE => true])
 		    ->send();
+
+		return $this;
 	}
 
 }

@@ -2,36 +2,38 @@
 
 namespace Netalico\Smartthings;
 
-// use Netalico\Smartthings\Switches;
-
-
+use \anlutro\cURL\cURL;
 
 class Smartthings {
 
-	private $baseURL = "https://graph.api.smartthings.com";
+	protected $baseURL = "https://graph.api.smartthings.com";
 
-	private $oauthUrl;
+	protected $oauthUrl;
 
-	private $endpoint;
+	protected $endpoint;
 
-	private $clientId;
+	protected $clientId;
 
-	private $clientSecret;
+	protected $clientSecret;
 
-	private $accessToken = null;
+	protected $accessToken = null;
 
-	private $accessCode;
+	protected $accessCode;
 
-	private $redirectUri;
+	protected $redirectUri;
 
-	private $switches;
+	protected $switches;
 
-	public function __construct()
-	{} 
+	protected $curl;
 
-	public function greetings()
+	public function __construct(cURL $curl)
+	{	
+		$this->curl = new cURL;
+	} 
+
+	public function getSmartthings()
 	{
-		return "working";
+		return $this;
 	}
 
 	public function getOauthUrl() 
@@ -44,21 +46,29 @@ class Smartthings {
 	public function setClientId($clientId)
 	{
 		$this->clientId = $clientId;
+
+		return $this;
 	}
 
 	public function setClientSecret($clientSecret)
 	{
 		$this->clientSecret = $clientSecret;
+
+		return $this;
 	}
 
 	public function setRedirectUri($redirectUri)
 	{
 		$this->redirectUri = $redirectUri;
+
+		return $this;
 	}
 
 	public function setAccessToken($accessToken)
 	{
 		$this->accessToken = $accessToken;
+
+		return $this;
 	}
 
 	public function getAccessToken()
@@ -69,11 +79,15 @@ class Smartthings {
 	public function setAccessCode($accessCode)
 	{
 		$this->accessCode = $accessCode;
+
+		return $this;
 	}
 
 	public function setEndpoint($endpoint)
 	{
 		$this->endpoint = $endpoint;
+
+		return $this;
 	}
 
 	public function getEndpoint()
@@ -92,8 +106,8 @@ class Smartthings {
 		$authUrl .= "&code=" . $this->accessCode;
 		$authUrl .= "&redirect_uri=" . urlencode($this->redirectUri);
 
-		$curl = new \anlutro\cURL\cURL;
-		$response = $curl->get($authUrl);
+		
+		$response = $this->curl->get($authUrl);
 
 		$tokenData = json_decode($response);
 
